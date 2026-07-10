@@ -1,0 +1,39 @@
+{
+    "name": "azero/rentmanager-php",
+    "description": "Dependency-free PHP SDK for Rent Manager WAPI12.",
+    "type": "library",
+    "license": "PolyForm-Noncommercial-1.0.0",
+    "authors": [
+        {
+            "name": "azero",
+            "email": "number1forreal@gmail.com"
+        }
+    ],
+    "keywords": [
+        "rent-manager",
+        "property-management",
+        "sdk",
+        "wapi12"
+    ],
+    "homepage": "https://github.com/azero/rentmanager_php",
+    "support": {
+        "issues": "https://github.com/azero/rentmanager_php/issues",
+        "source": "https://github.com/azero/rentmanager_php"
+    },
+    "require": {
+        "php": ">=8.2"
+    },
+    "autoload": {
+        "files": [
+            "autoload.php"
+        ]
+    },
+    "scripts": {
+        "lint": "php tests/lint.php",
+        "test": "php tests/run.php",
+        "check": [
+            "@lint",
+            "@test"
+        ]
+    }
+}

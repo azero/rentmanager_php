@@ -1,0 +1,17 @@
+* text=auto eol=lf
+
+*.php text diff=php
+*.json text
+*.md text
+*.yml text
+*.yaml text
+
+/.env export-ignore
+/.env.* export-ignore
+/.env.example -export-ignore
+/.rentmanager-token.json export-ignore
+/exports export-ignore
+service-ticket-export-* export-ignore
+/.github export-ignore
+/tests export-ignore
+/CONTRIBUTING.md export-ignore
