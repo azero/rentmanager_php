@@ -4,12 +4,24 @@
 [![PHP 8.2+](https://img.shields.io/badge/PHP-8.2%2B-777bb4.svg)](https://www.php.net/)
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE)
 
-A dependency-free PHP 8.2+ SDK for Rent Manager WAPI12, ported from the companion RentManager-Python project. It provides a client, a generic caller for any WAPI resource or action, generated resource facades, permissive model objects, RQL query helpers, pagination, structured errors, token storage, multipart uploads, downloads, and optional workflow helpers.
+A dependency-free PHP 8.2+ SDK for Rent Manager WAPI12, ported from the companion [azero/rentmanager_python](https://github.com/azero/rentmanager_python) project. It combines convenient resource facades with a generic request interface, so applications can use modeled endpoints without losing access to new or less common endpoints.
 
 The public Rent Manager WAPI12 overview documents the REST shape, authentication, query parameters, pagination, rate-limit headers, concurrency behavior, and standard response codes, but it does not publish a complete endpoint/model catalog. This package therefore bundles the endpoint information used by the Python implementation while retaining a generic caller for newly discovered resources.
 
 > [!IMPORTANT]
-> This is an independent community project. It is not affiliated with, endorsed by, or supported by London Computer Systems or Rent Manager. Rent Manager API access is a separate service and may require an eligible account or subscription.
+> This is an independent, community-maintained project. It is not affiliated with, endorsed by, or supported by Rent Manager or London Computer Systems. You need your own authorized Rent Manager WAPI12 account and must follow the provider's terms and your organization's data-handling requirements.
+
+## Features
+
+- Dependency-free client with cURL and PHP-stream transports
+- Generated resource facades and permissive models across the known WAPI12 surface
+- RQL filters, field selection, embedding, pagination, and page iteration
+- Structured authentication, transport, rate-limit, and API errors
+- Configurable in-memory or private file-backed token storage
+- Generic endpoint and action methods for API surface not yet modeled
+- Multipart uploads, downloads, retries, and automatic reauthentication
+- Optional helpers for service-ticket and email-lookup workflows
+- Mock-based tests; live examples and write operations are explicitly opt-in
 
 ## Requirements
 
@@ -20,7 +32,14 @@ The public Rent Manager WAPI12 overview documents the REST shape, authentication
 
 ## Installation
 
-Clone the repository and require its autoloader:
+Clone the repository:
+
+```bash
+git clone https://github.com/azero/rentmanager_php.git
+cd rentmanager_php
+```
+
+Then require its autoloader:
 
 ```php
 require_once '/path/to/rentmanager_php/autoload.php';
@@ -33,7 +52,7 @@ composer config repositories.rentmanager-php vcs https://github.com/azero/rentma
 composer require azero/rentmanager-php:dev-main
 ```
 
-## Basic usage
+## Quick start
 
 ```php
 <?php
@@ -128,7 +147,7 @@ php examples\service_ticket_export.php
 
 ```php
 $rows = $client->get('CustomResource', query: ['filters' => 'Name,ct,Smith']);
-$result = $client->action('RecurringCharges/PostRecurringCharges', ['PostDate' => '2026-04-23']);
+$result = $client->action('RecurringCharges/PostRecurringCharges', ['PostDate' => '2026-07-09']);
 
 $payments = $client->account_group_master_payments->list();
 $resource = $client->resource('account_group_master_payments');
@@ -183,16 +202,12 @@ Or, with Composer installed:
 composer check
 ```
 
-The tests use a mock transport and do not require Rent Manager credentials. CI runs linting and tests across all supported PHP versions.
+The tests use a mock transport and do not require Rent Manager credentials. CI runs linting and tests across all supported PHP versions. See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [SECURITY.md](SECURITY.md) for private vulnerability reporting.
 
 `AsyncRentManagerClient` is a compatibility subclass of the synchronous client because PHP has no built-in async/await equivalent without additional dependencies.
 
-## Security
-
-See [SECURITY.md](SECURITY.md) for private vulnerability reporting and credential-handling guidance.
-
 ## License
 
-This project is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE). Noncommercial reuse and modification are permitted as long as the license and required attribution notices are preserved. Commercial use is not granted.
+This project is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE). You may use, modify, and redistribute it for permitted noncommercial purposes, provided the license and required attribution notice remain with copies. Commercial use or inclusion in a commercial product is not permitted without a separate license from the copyright holder.
 
-This project includes work derived from the MIT-licensed RentManager-Python project. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Prefer Python? See the companion [azero/rentmanager_python](https://github.com/azero/rentmanager_python) SDK, which is maintained under the same licensing model.
